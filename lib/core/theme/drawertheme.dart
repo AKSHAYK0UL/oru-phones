@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
 
-AppBarTheme get appBarTheme {
-  return AppBarTheme(
+DrawerThemeData get drawerThemeData {
+  return DrawerThemeData(
     backgroundColor: backgroundColor,
     elevation: 0,
-    titleSpacing: 0,
-    scrolledUnderElevation: 0,
   );
 }

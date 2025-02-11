@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
 
-class InputField extends StatelessWidget {
+class UserNameInputFiled extends StatelessWidget {
   final TextEditingController controller;
 
-  const InputField({
+  const UserNameInputFiled({
     super.key,
     required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-
     return TextField(
       decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.045),
-          child: Text("+91 ", style: Theme.of(context).textTheme.labelLarge),
-        ),
-        hintText: "Mobile Number",
+        hintText: "Name",
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         hintStyle: Theme.of(context)
             .textTheme
@@ -31,14 +25,9 @@ class InputField extends StatelessWidget {
         errorBorder: buildOutlineInputBorder(textinputErrorColor),
         focusedErrorBorder: buildOutlineInputBorder(textinputErrorColor),
       ),
-      maxLength: 10,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.name,
       style: Theme.of(context).textTheme.labelLarge,
       controller: controller,
-      buildCounter: (context,
-          {required currentLength, required isFocused, required maxLength}) {
-        return null; //hide the maxLength lable
-      },
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oruphones/core/route/route.dart';
 import 'package:oruphones/core/theme/apptheme.dart';
 import 'package:oruphones/presentation/auth/screen/signin.dart';
+import 'package:oruphones/presentation/home/screen/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ORU PHONES',
       theme: appThemeData(screenWidth, screenHeight),
-      home: const SignIn(),
+      home: const Home(),
+      routes: routes(context),
     );
   }
 }

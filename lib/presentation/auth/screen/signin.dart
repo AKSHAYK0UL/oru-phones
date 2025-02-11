@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/presentation/auth/screen/otp.dart';
 import 'package:oruphones/presentation/auth/widget/inputfield.dart';
 
 class SignIn extends StatefulWidget {
@@ -11,6 +12,16 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  ValueNotifier<bool> checkbox = ValueNotifier<bool>(false);
+  final phoneNumbercontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    checkbox.dispose();
+    phoneNumbercontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
@@ -22,7 +33,10 @@ class _SignInState extends State<SignIn> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0152),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                FocusManager.instance.primaryFocus
+                    ?.unfocus(); //close the keyboard
+              },
               icon: Icon(
                 Icons.close,
                 size: screenHeight * 0.039,
@@ -72,42 +86,66 @@ class _SignInState extends State<SignIn> {
                 child: Text("Enter Your Phone Number",
                     style: Theme.of(context).textTheme.labelSmall),
               ),
-              InputField(),
+              InputField(
+                controller: phoneNumbercontroller,
+              ),
               SizedBox(
                 height: screenHeight * 0.0760,
               ),
-              CheckboxListTile(
-                controlAffinity: ListTileControlAffinity.leading,
-                title: RichText(
-                  text: TextSpan(
+              ValueListenableBuilder(
+                valueListenable: checkbox,
+                builder: (context, value, child) {
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      TextSpan(
-                        text: "Accept ",
-                        style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  color: textBlackColor,
-                                ),
+                      Checkbox(
+                        value: value,
+                        onChanged: (value) {
+                          checkbox.value = value ?? false;
+                        },
                       ),
-                      TextSpan(
-                        text: "Terms and condition",
-                        style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  color: textNavyBlueHexColor01,
-                                  decoration: TextDecoration.underline,
-                                ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Accept ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: blackColor,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: "Terms and condition",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: navyBlueHexColor01,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-                ),
-                value: false,
-                onChanged: (value) {},
+                  );
+                },
               ),
               SizedBox(
-                height: screenHeight * 0.0101,
+                height: screenHeight * 0.0060,
               ),
               ElevatedButton(
                 style: Theme.of(context).elevatedButtonTheme.style,
-                onPressed: () {},
+                onPressed: () {
+                  if (phoneNumbercontroller.text.length == 10) {
+                    Navigator.of(context).pushNamed(VerifyOtp.routeName,
+                        arguments: phoneNumbercontroller.text);
+                  }
+                  print(phoneNumbercontroller.text);
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
