@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oruphones/bloc/auth_bloc/bloc/auth_bloc.dart';
+import 'package:oruphones/core/enum/authenum.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/core/ui_component/toast.dart';
+import 'package:oruphones/model/auth/createotp.dart';
 import 'package:oruphones/presentation/auth/screen/otp.dart';
 import 'package:oruphones/presentation/auth/widget/inputfield.dart';
 
@@ -137,32 +142,58 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 height: screenHeight * 0.0060,
               ),
-              ElevatedButton(
-                style: Theme.of(context).elevatedButtonTheme.style,
-                onPressed: () {
-                  if (phoneNumbercontroller.text.length == 10) {
-                    Navigator.of(context).pushNamed(VerifyOtp.routeName,
-                        arguments: phoneNumbercontroller.text);
+              BlocConsumer<AuthBloc, AuthState>(
+                buildWhen: (previous, current) => current != previous,
+                listenWhen: (previous, current) => current != previous,
+                listener: (context, state) {
+                  if (state is AuthErrorState &&
+                      state.errorSource == AuthENUM.createOTP) {
+                    showToast("Invalid number");
                   }
-                  print(phoneNumbercontroller.text);
+                  if (state is AuthOTPResponseState) {
+                    Navigator.of(context).pushNamed(VerifyOtp.routeName,
+                        arguments: state.otpResponse.dataObject.mobileNumber
+                            .substring(
+                                2)); //substring to remove country code 91
+                  }
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Next",
-                      style: GoogleFonts.poppins(
-                        fontSize: screenHeight * 0.0253,
-                        fontWeight: FontWeight.w600,
-                      ),
+                builder: (context, state) {
+                  if (state is AuthLoadingState &&
+                      state.laodingSource == AuthENUM.createOTP) {
+                    return const CircularProgressIndicator();
+                  }
+                  return ElevatedButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
+                    onPressed: () {
+                      if (phoneNumbercontroller.text.length < 10) {
+                        showToast("Invalid number");
+                        return;
+                      }
+                      CreateOTP data = CreateOTP(
+                        countryCode: "91",
+                        mobileNumber: phoneNumbercontroller.text.trim(),
+                      );
+                      context.read<AuthBloc>().add(CreateOTPEvent(data: data));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Next",
+                          style: GoogleFonts.poppins(
+                            fontSize: screenHeight * 0.0253,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(width: screenHeight * 0.00633),
+                        Icon(
+                          Icons.arrow_forward,
+                          size: screenHeight * 0.0380,
+                        ),
+                      ],
                     ),
-                    SizedBox(width: screenHeight * 0.00633),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: screenHeight * 0.0380,
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ],
           ),

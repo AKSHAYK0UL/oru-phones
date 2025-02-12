@@ -5,7 +5,7 @@ import 'package:oruphones/presentation/home/screen/home.dart';
 
 Map<String, WidgetBuilder> routes(BuildContext context) {
   return {
-    VerifyOtp.routeName: (context) => const VerifyOtp(),
+    VerifyOtp.routeName: (context) => VerifyOtp(),
     UserName.routeName: (context) => const UserName(),
     Home.routeName: (context) => const Home(),
   };

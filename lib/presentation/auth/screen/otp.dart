@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oruphones/bloc/auth_bloc/bloc/auth_bloc.dart';
+import 'package:oruphones/core/enum/authenum.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/core/ui_component/toast.dart';
+import 'package:oruphones/model/auth/createotp.dart';
 import 'package:oruphones/presentation/auth/screen/username.dart';
 import 'package:oruphones/presentation/auth/widget/otptextfield.dart';
 
-class VerifyOtp extends StatelessWidget {
+// ignore: must_be_immutable
+class VerifyOtp extends StatefulWidget {
   static const routeName = "/verify-otp";
   const VerifyOtp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final phoneNumber = ModalRoute.of(context)?.settings.arguments as String;
-    final screenHeight = MediaQuery.sizeOf(context).height;
-    final screenWidth = MediaQuery.sizeOf(context).width;
+  State<VerifyOtp> createState() => _VerifyOtpState();
+}
 
+class _VerifyOtpState extends State<VerifyOtp> {
+  String otpValue = "";
+
+  @override
+  Widget build(BuildContext context) {
+    final phoneNumber =
+        ModalRoute.of(context)?.settings.arguments as String? ?? "";
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -21,8 +34,7 @@ class VerifyOtp extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0152),
             child: IconButton(
               onPressed: () {
-                FocusManager.instance.primaryFocus
-                    ?.unfocus(); //close the keyboard
+                FocusManager.instance.primaryFocus?.unfocus();
               },
               icon: Icon(
                 Icons.close,
@@ -37,7 +49,6 @@ class VerifyOtp extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0152),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AnimatedContainer(
@@ -51,23 +62,19 @@ class VerifyOtp extends StatelessWidget {
                   width: screenWidth * 0.50,
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.0185,
-              ),
+              SizedBox(height: screenHeight * 0.0185),
               Text(
                 "Verify Mobile No.",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              SizedBox(
-                height: screenHeight * 0.00633,
-              ),
+              SizedBox(height: screenHeight * 0.00633),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   children: [
                     TextSpan(
                       text:
-                          "Please enter the 4 digital verification code sent to your mobile ",
+                          "Please enter the 4 digit verification code sent to your mobile ",
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     TextSpan(
@@ -91,18 +98,13 @@ class VerifyOtp extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.105,
-              ),
+              SizedBox(height: screenHeight * 0.105),
               OTPTextField(
-                otpValue: (p0) {
-                  // setState(() {});
-                  // print(p0);
+                otpValue: (value) {
+                  otpValue = value;
                 },
               ),
-              SizedBox(
-                height: screenHeight * 0.105,
-              ),
+              SizedBox(height: screenHeight * 0.105),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -123,28 +125,58 @@ class VerifyOtp extends StatelessWidget {
                     ),
                     TextSpan(
                       text: "0:23 Sec",
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: blackColor01,
-                          ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium
+                          ?.copyWith(color: blackColor01),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.120,
-              ),
-              ElevatedButton(
-                style: Theme.of(context).elevatedButtonTheme.style,
-                onPressed: () {
-                  Navigator.of(context).pushNamed(UserName.routeName);
+              SizedBox(height: screenHeight * 0.120),
+              BlocConsumer<AuthBloc, AuthState>(
+                buildWhen: (previous, current) => current != previous,
+                listenWhen: (previous, current) => current != previous,
+                listener: (context, state) {
+                  if (state is AuthSuccessState) {
+                    Navigator.of(context).pushNamed(UserName.routeName);
+                  }
+                  if (state is AuthErrorState &&
+                      state.errorSource == AuthENUM.verifyOTP) {
+                    showToast("Invalid OTP");
+                  }
                 },
-                child: Text(
-                  "Verify OTP",
-                  style: GoogleFonts.poppins(
-                    fontSize: screenHeight * 0.0253,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                builder: (context, state) {
+                  if (state is AuthLoadingState &&
+                      state.laodingSource == AuthENUM.verifyOTP) {
+                    return const CircularProgressIndicator();
+                  }
+                  return ElevatedButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
+                    onPressed: () {
+                      if (otpValue.isEmpty) {
+                        showToast("Enter OTP");
+                        return;
+                      }
+                      context.read<AuthBloc>().add(
+                            VerifyOTPEvent(
+                              data: OTPRequest(
+                                countryCode: "91",
+                                mobileNumber: phoneNumber,
+                                otp: otpValue,
+                              ),
+                            ),
+                          );
+                    },
+                    child: Text(
+                      "Verify OTP",
+                      style: GoogleFonts.poppins(
+                        fontSize: screenHeight * 0.0253,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

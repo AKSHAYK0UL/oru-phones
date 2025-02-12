@@ -1,0 +1,4 @@
+enum AuthENUM {
+  createOTP,
+  verifyOTP,
+}
