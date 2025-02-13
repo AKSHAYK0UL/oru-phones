@@ -23,7 +23,7 @@ class BuildDrawer extends StatelessWidget {
                   onPressed: () {
                     Scaffold.of(context).closeDrawer();
                   },
-                  icon: Icon(Icons.close))
+                  icon: const Icon(Icons.close))
             ],
           ),
         ],

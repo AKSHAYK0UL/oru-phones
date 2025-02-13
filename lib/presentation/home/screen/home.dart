@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
-import 'package:oruphones/presentation/home/widget/drawer.dart';
-import 'package:oruphones/presentation/home/widget/searchbar.dart';
+import 'package:oruphones/presentation/home/widget/banner.dart' as bn;
+import 'package:oruphones/presentation/home/widget/brand.dart';
+import 'package:oruphones/presentation/home/widget/filter.dart';
+import 'package:oruphones/presentation/home/widget/products.dart';
+import 'package:oruphones/presentation/home/widget/services.dart';
 
 class Home extends StatelessWidget {
   static const routeName = "/home";
@@ -13,75 +16,126 @@ class Home extends StatelessWidget {
     final screenWidth = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: Image.asset("assets/menu.png"),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-        title: Image.asset(
-          "assets/oruphone.jpg",
-          height: screenHeight * 0.95,
-          width: screenWidth * 0.15,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Text(
-              "india",
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: blackColor01,
-                  ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              "assets/location.png",
-              fit: BoxFit.fill,
-              height: 30,
-              width: 24,
-              color: blackColor01,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 05, right: 15.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: yellowColor01,
-                fixedSize: Size(80, 25),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const bn.Banner(),
+              const SizedBox(
+                height: 20,
               ),
-              child: Text(
-                "Login",
+              Text(
+                "What's on your mind?",
                 style: Theme.of(context)
                     .textTheme
-                    .labelSmall
-                    ?.copyWith(fontWeight: FontWeight.w500),
+                    .labelLarge
+                    ?.copyWith(color: blackColor01),
               ),
-            ),
-          ),
-        ],
-      ),
-      drawer: BuildDrawer(),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.7, vertical: 10),
-          child: Column(
-            children: [
-              //search bar
-              Searchbar(
-                searchValue: '',
+
+              const SizedBox(
+                height: 20,
               ),
-              //tab bar
-              //banner
+              //services
+              const Services(),
+              const SizedBox(
+                height: 20,
+              ),
+              // top brands
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Top brands",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.copyWith(color: blackColor01),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: blackColor01,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+              BrandIcon(),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Best deals in India",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: blackColor01),
+              ),
+              //filter buttons
+              const SizedBox(
+                height: 14,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FilterButton(
+                    onTap: () {},
+                    text: "Sort",
+                    prefixIcon: Icons.swap_vert,
+                    suffixIcon: Icons.keyboard_arrow_down,
+                  ),
+                  const SizedBox(
+                    width: 13,
+                  ),
+                  FilterButton(
+                    onTap: () {},
+                    text: "Filter",
+                    prefixIcon: Icons.tune,
+                    suffixIcon: Icons.keyboard_arrow_down,
+                  ),
+                ],
+              ),
+              // ProductWidget(),
+              const Products(),
             ],
           ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          fixedSize: const Size(125, 60),
+          backgroundColor: blackColor02,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+            side: BorderSide(
+              color: yellowColor01,
+              width: 4,
+            ),
+          ),
+        ),
+        onPressed: () {},
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Sell",
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: yellowColor01,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            SizedBox(width: screenHeight * 0.00633),
+            Icon(
+              Icons.add,
+              color: yellowColor01,
+              size: screenHeight * 0.0380,
+            ),
+          ],
         ),
       ),
     );
