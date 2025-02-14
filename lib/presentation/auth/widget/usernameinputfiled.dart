@@ -25,7 +25,7 @@ class UserNameInputFiled extends StatelessWidget {
         errorBorder: buildOutlineInputBorder(textinputErrorColor),
         focusedErrorBorder: buildOutlineInputBorder(textinputErrorColor),
       ),
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.emailAddress,
       style: Theme.of(context).textTheme.labelLarge,
       controller: controller,
     );

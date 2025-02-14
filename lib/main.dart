@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oruphones/bloc/auth_bloc/bloc/auth_bloc.dart';
+import 'package:oruphones/bloc/faqs_bloc/faqs_bloc.dart';
 import 'package:oruphones/bloc/product_bloc/bloc/product_bloc.dart';
 import 'package:oruphones/constants/constants.dart';
 import 'package:oruphones/core/route/route.dart';
@@ -9,10 +10,12 @@ import 'package:oruphones/core/theme/apptheme.dart';
 import 'package:oruphones/helper/hive.dart';
 import 'package:oruphones/model/auth/user.dart';
 import 'package:oruphones/network/auth_network/authnetwork.dart';
+import 'package:oruphones/network/faqs_network/faqs_network.dart';
 import 'package:oruphones/network/product_network/productnetwork.dart';
 
 import 'package:oruphones/presentation/home/screen/tabbutton.dart';
 import 'package:oruphones/repository/auth_repo/authrepo.dart';
+import 'package:oruphones/repository/faqs_repo/faqs_repo.dart';
 import 'package:oruphones/repository/product_repo/productrepo.dart';
 
 Future<void> main() async {
@@ -55,6 +58,11 @@ class _MyAppState extends State<MyApp> {
             ProductNetwork(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => FaqsRepo(
+            FaqsNetwork(),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -67,6 +75,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(
             create: (context) => ProductBloc(
               context.read<ProductRepo>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => FaqsBloc(
+              context.read<FaqsRepo>(),
             ),
           ),
         ],

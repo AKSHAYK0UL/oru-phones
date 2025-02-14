@@ -4,12 +4,28 @@ import 'package:oruphones/core/theme/hexcolor.dart';
 
 TextTheme textTheme(double screenHeight) {
   return TextTheme(
-    // titleLarge:
     titleMedium: GoogleFonts.poppins(
       color: titleMediumTextColor,
       fontSize: screenHeight * 0.039,
       fontWeight: FontWeight.w600,
     ),
+
+    titleSmall: GoogleFonts.poppins(
+      color: titleMediumTextColor,
+      fontSize: screenHeight * 0.0200,
+      fontWeight: FontWeight.w500,
+    ),
+    displayMedium: GoogleFonts.poppins(
+      color: titleMediumTextColor,
+      fontSize: screenHeight * 0.0250,
+      fontWeight: FontWeight.w600,
+    ),
+    displaySmall: GoogleFonts.poppins(
+      color: labeSmallTextColor,
+      fontSize: screenHeight * 0.0160,
+      fontWeight: FontWeight.w400,
+    ),
+
     // titleSmall:
     labelLarge: GoogleFonts.poppins(
       color: contryCodeColor,
