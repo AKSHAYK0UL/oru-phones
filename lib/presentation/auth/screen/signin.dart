@@ -171,6 +171,8 @@ class _SignInState extends State<SignIn> {
                         showToast("Invalid number");
                         return;
                       }
+                      FocusManager.instance.primaryFocus?.unfocus();
+
                       CreateOTP data = CreateOTP(
                         countryCode: "91",
                         mobileNumber: phoneNumbercontroller.text.trim(),

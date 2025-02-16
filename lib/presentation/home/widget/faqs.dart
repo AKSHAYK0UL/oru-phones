@@ -4,19 +4,8 @@ import 'package:oruphones/bloc/faqs_bloc/faqs_bloc.dart';
 import 'package:oruphones/core/enum/faqsenum.dart';
 import 'package:oruphones/presentation/home/widget/faqtitle.dart';
 
-class Faqs extends StatefulWidget {
+class Faqs extends StatelessWidget {
   const Faqs({super.key});
-
-  @override
-  State<Faqs> createState() => _FaqsState();
-}
-
-class _FaqsState extends State<Faqs> {
-  @override
-  void initState() {
-    context.read<FaqsBloc>().add(FetchFAQSEvent());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

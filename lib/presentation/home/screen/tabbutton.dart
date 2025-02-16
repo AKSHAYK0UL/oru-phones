@@ -112,7 +112,7 @@ class _TabbuttonState extends State<Tabbutton> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: yellowColor01,
                               fixedSize: Size(
-                                  screenWidth * 0.2000, screenHeight * 0.0316),
+                                  screenWidth * 0.2200, screenHeight * 0.0316),
                             ),
                             child: Text(
                               "Login",

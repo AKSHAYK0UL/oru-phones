@@ -137,6 +137,7 @@ class _UserNameState extends State<UserName> {
                         showToast("Enter Name");
                         return;
                       }
+                      FocusManager.instance.primaryFocus?.unfocus();
                       context.read<AuthBloc>().add(
                             UpdateUserNameEvent(name: userNameController.text),
                           );

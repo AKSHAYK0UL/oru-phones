@@ -6,19 +6,8 @@ import 'package:oruphones/core/ui_component/toast.dart';
 import 'package:oruphones/presentation/home/widget/ad_banner.dart';
 import 'package:oruphones/presentation/home/widget/prodtile.dart';
 
-class Products extends StatefulWidget {
+class Products extends StatelessWidget {
   const Products({super.key});
-
-  @override
-  State<Products> createState() => _ProductsState();
-}
-
-class _ProductsState extends State<Products> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProductBloc>().add(FetchProductsEvent());
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -119,14 +119,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _hiveService.save(updatedUserData);
 
       emit(AuthSuccessState(successSource: AuthENUM.updateUser));
-    } catch (e) {
-      emit(
-        AuthErrorState(
-          errorMessage: e.toString(),
-          errorSource: AuthENUM.updataName,
-        ),
-      );
-    }
+    } catch (e) {}
   }
 
   //logout

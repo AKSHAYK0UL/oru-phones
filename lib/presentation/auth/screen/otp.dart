@@ -231,6 +231,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                         showToast("Enter OTP");
                         return;
                       }
+                      FocusManager.instance.primaryFocus?.unfocus();
+
                       context.read<AuthBloc>().add(
                             VerifyOTPEvent(
                               data: OTPRequest(
