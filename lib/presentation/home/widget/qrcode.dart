@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oruphones/constants/constants.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/core/ui_component/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QRCode extends StatelessWidget {
@@ -78,11 +80,11 @@ class QRCode extends StatelessWidget {
                             ),
                         textAlign: TextAlign.center,
                       ),
-                      buildlogo("assets/PlayStore.png", () async {
-                        await openLink(playstoreUrl);
+                      buildlogo("assets/PlayStore.png", () {
+                        copyToClipboard(playstoreUrl);
                       }),
-                      buildlogo("assets/AppStore.png", () async {
-                        await openLink(appstoreUrl);
+                      buildlogo("assets/AppStore.png", () {
+                        copyToClipboard(appstoreUrl);
                       }),
                     ],
                   ),
@@ -96,11 +98,16 @@ class QRCode extends StatelessWidget {
   }
 }
 
+void copyToClipboard(String text) {
+  Clipboard.setData(ClipboardData(text: text));
+  showToast("Copied to Clipboard");
+}
+
 Future<void> openLink(String path) async {
   if (await canLaunchUrl(Uri.parse(path))) {
     await launchUrl(Uri.parse(path));
   } else {
-    throw 'Could not launch X';
+    throw 'Could not open the link';
   }
 }
 
