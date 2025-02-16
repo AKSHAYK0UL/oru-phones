@@ -86,19 +86,21 @@ class _TabbuttonState extends State<Tabbutton> {
                     icon: Image.asset(
                       "assets/location.png",
                       fit: BoxFit.fill,
-                      height: 30,
-                      width: 24,
+                      height: screenHeight * 0.038,
+                      width: screenWidth * 0.0600,
                       color: blackColor01,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 15.0),
+                    padding: EdgeInsets.only(
+                        left: screenHeight * 0.00633,
+                        right: screenHeight * 0.019),
                     child: UserSingleton.user != null
                         ? IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.notifications,
-                              size: 30,
+                              size: screenHeight * 0.038,
                               color: yellowColor01,
                             ),
                           )
@@ -108,7 +110,8 @@ class _TabbuttonState extends State<Tabbutton> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: yellowColor01,
-                              fixedSize: const Size(80, 25),
+                              fixedSize: Size(
+                                  screenWidth * 2000, screenHeight * 0.0316),
                             ),
                             child: Text(
                               "Login",
@@ -121,14 +124,15 @@ class _TabbuttonState extends State<Tabbutton> {
                   ),
                 ],
                 bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(120.0),
+                  preferredSize: Size.fromHeight(screenHeight * 0.152),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.7, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.0325,
+                        vertical: screenHeight * 0.0126),
                     child: Column(
                       children: [
                         const Searchbar(searchValue: ''),
-                        const SizedBox(height: 10),
+                        SizedBox(height: screenHeight * 0.01267),
                         SingleChildScrollView(
                           child: ButtonsTabBar(
                             backgroundColor: backgroundColor,

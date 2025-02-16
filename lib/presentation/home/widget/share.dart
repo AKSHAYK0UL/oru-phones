@@ -3,7 +3,8 @@ import 'package:oruphones/core/theme/hexcolor.dart';
 import 'package:oruphones/helper/share.dart';
 
 class Share extends StatelessWidget {
-  const Share({super.key});
+  Share({super.key});
+  final _shareOnMedia = ShareOnSocialMedia();
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +26,16 @@ class Share extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               buildShareIcon("assets/insta.png", () async {
-                await ShareOnSocialMedia.instagram();
+                await _shareOnMedia.shareToInstagram();
               }),
               buildShareIcon("assets/telegram.png", () async {
-                await ShareOnSocialMedia.telegram();
+                await _shareOnMedia.shareToTelegram();
               }),
               buildShareIcon("assets/twitter.png", () async {
-                await ShareOnSocialMedia.shareOnX();
+                await _shareOnMedia.shareToX();
               }),
               buildShareIcon("assets/whatsapp.png", () async {
-                await ShareOnSocialMedia.whatsApp();
+                await _shareOnMedia.shareToWhatsApp();
               }),
             ],
           ),

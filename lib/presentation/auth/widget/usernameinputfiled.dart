@@ -34,7 +34,7 @@ class UserNameInputFiled extends StatelessWidget {
 
 OutlineInputBorder buildOutlineInputBorder(Color color) {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(7),
+    borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(color: color, width: 1.5),
   );
 }

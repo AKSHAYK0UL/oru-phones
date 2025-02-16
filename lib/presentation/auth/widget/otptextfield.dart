@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
 
-class OTPTextField extends StatelessWidget {
+class OTPTextField extends StatefulWidget {
   final Function(String) otpValue;
   const OTPTextField({super.key, required this.otpValue});
 
+  @override
+  State<OTPTextField> createState() => _OTPTextFieldState();
+}
+
+class _OTPTextFieldState extends State<OTPTextField> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -24,7 +29,7 @@ class OTPTextField extends StatelessWidget {
       fieldHeight: screenHeight * 0.065,
       fieldWidth: screenWidth * 0.120,
       filled: true,
-      onSubmit: otpValue,
+      onSubmit: widget.otpValue,
     );
   }
 }

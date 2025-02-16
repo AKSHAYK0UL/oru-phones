@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/helper/sortbottomsheet.dart';
 import 'package:oruphones/presentation/home/widget/banner.dart' as bn;
 import 'package:oruphones/presentation/home/widget/brand.dart';
 import 'package:oruphones/presentation/home/widget/faqs.dart';
@@ -61,13 +62,15 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.7, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.0325,
+                  vertical: screenHeight * 0.0126),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const bn.Banner(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.02533),
+
                   Text(
                     "What's on your mind?",
                     style: Theme.of(context)
@@ -75,12 +78,13 @@ class _HomeState extends State<Home> {
                         .labelLarge
                         ?.copyWith(color: blackColor01),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.01647),
                   const Services(),
-                  const SizedBox(height: 20),
-                  textWithArrowButton(context, "Top brands", () {}),
+                  SizedBox(height: screenHeight * 0.01647),
+                  textWithArrowButton(
+                      context, "Top brands", screenHeight, () {}),
                   BrandIcon(),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.01267),
                   Text(
                     "Best deals in India",
                     style: Theme.of(context)
@@ -88,40 +92,46 @@ class _HomeState extends State<Home> {
                         .labelLarge
                         ?.copyWith(color: blackColor01),
                   ),
-                  const SizedBox(height: 14),
+                  SizedBox(height: screenHeight * 0.01773),
                   // Filter buttons.
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       FilterButton(
-                        onTap: () {},
+                        onTap: () {
+                          showSortBottomSheet(context);
+                        },
                         text: "Sort",
                         prefixIcon: Icons.swap_vert,
                         suffixIcon: Icons.keyboard_arrow_down,
                       ),
-                      const SizedBox(width: 13),
+                      SizedBox(
+                        width: screenWidth * 0.0325,
+                      ),
                       FilterButton(
-                        onTap: () {},
+                        onTap: () {
+                          showSortBottomSheet(context);
+                        },
                         text: "Filter",
                         prefixIcon: Icons.tune,
                         suffixIcon: Icons.keyboard_arrow_down,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: screenHeight * 0.0228),
                   const Products(),
-                  const SizedBox(height: 18),
-                  textWithArrowButton(
-                      context, "Frequently Asked Questions", () {}),
-                  const SizedBox(height: 13),
+                  SizedBox(height: screenHeight * 0.0228),
+                  textWithArrowButton(context, "Frequently Asked Questions",
+                      screenHeight, () {}),
+                  SizedBox(height: screenHeight * 0.01647),
                   const Faqs(),
-                  const SizedBox(height: 13),
+                  SizedBox(height: screenHeight * 0.01647),
                 ],
               ),
             ),
             const NotificationOffer(),
             const QRCode(),
-            const Share(),
+            Share(),
           ],
         ),
       ),
@@ -137,7 +147,7 @@ class _HomeState extends State<Home> {
         },
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            fixedSize: const Size(125, 60),
+            fixedSize: Size(screenWidth * 0.3125, screenHeight * 0.076),
             backgroundColor: blackColor02,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
@@ -173,7 +183,7 @@ class _HomeState extends State<Home> {
 }
 
 Widget textWithArrowButton(
-    BuildContext context, String text, VoidCallback ontap) {
+    BuildContext context, String text, double size, VoidCallback ontap) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -189,7 +199,7 @@ Widget textWithArrowButton(
         child: Icon(
           Icons.arrow_forward_ios,
           color: blackColor01,
-          size: 20,
+          size: size * 0.0253,
         ),
       ),
     ],

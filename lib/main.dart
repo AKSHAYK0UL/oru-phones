@@ -12,7 +12,6 @@ import 'package:oruphones/model/auth/user.dart';
 import 'package:oruphones/network/auth_network/authnetwork.dart';
 import 'package:oruphones/network/faqs_network/faqs_network.dart';
 import 'package:oruphones/network/product_network/productnetwork.dart';
-import 'package:oruphones/presentation/auth/screen/signin.dart';
 import 'package:oruphones/presentation/home/screen/tabbutton.dart';
 
 import 'package:oruphones/repository/auth_repo/authrepo.dart';

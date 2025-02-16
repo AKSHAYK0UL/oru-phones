@@ -16,8 +16,10 @@ class BrandIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     return SizedBox(
-      height: 150,
+      height: screenHeight * 0.190,
       width: double.infinity,
       child: ListView.builder(
         shrinkWrap: true,
@@ -25,14 +27,14 @@ class BrandIcon extends StatelessWidget {
         itemCount: brands.length,
         itemBuilder: (context, index) {
           final path = brands[index];
-          return buildBrandIcon(path);
+          return buildBrandIcon(path, screenWidth, screenHeight);
         },
       ),
     );
   }
 }
 
-Widget buildBrandIcon(String path) {
+Widget buildBrandIcon(String path, double width, height) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 7.0),
     child: CircleAvatar(
@@ -41,8 +43,8 @@ Widget buildBrandIcon(String path) {
       child: Image.asset(
         path,
         fit: BoxFit.fill,
-        height: 82,
-        width: 82,
+        height: height * 0.103,
+        width: width * 0.2050,
       ),
     ),
   );

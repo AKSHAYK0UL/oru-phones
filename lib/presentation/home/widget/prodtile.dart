@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/core/ui_component/cacaheimage.dart';
 import 'package:oruphones/model/product/product.dart' as prod;
 
 // ignore: must_be_immutable
@@ -30,10 +31,10 @@ class ProdTile extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Image.network(
-                data.imagePath,
+              child: cacheImage(
+                imageUrl: data.imagePath,
+                height: 0,
                 width: double.infinity,
-                fit: BoxFit.fill,
               ),
             ),
           ),

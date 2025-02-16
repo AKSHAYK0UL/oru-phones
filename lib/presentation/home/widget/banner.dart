@@ -47,10 +47,12 @@ class _BannerState extends State<Banner> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     return Column(
       children: [
         SizedBox(
-          height: 180,
+          height: screenHeight * 0.220,
           child: PageView.builder(
             itemBuilder: (context, index) {
               return buildBanner(paths[index % paths.length]);
@@ -58,24 +60,24 @@ class _BannerState extends State<Banner> {
             controller: _controller,
           ),
         ),
-        const SizedBox(
-          height: 08,
+        SizedBox(
+          height: screenHeight * 0.01013,
         ),
         SmoothPageIndicator(
           controller: _controller,
           count: paths.length,
           effect: CustomizableEffect(
-            spacing: 8.0,
+            spacing: screenHeight * 0.01013,
             dotDecoration: DotDecoration(
-              width: 7.5,
-              height: 7.5,
+              width: screenWidth * 0.018,
+              height: screenHeight * 0.0100,
               color: backgroundColor,
               borderRadius: BorderRadius.circular(7.5),
               dotBorder: DotBorder(color: greyColor03),
             ),
             activeDotDecoration: DotDecoration(
-              width: 7.5,
-              height: 7.5,
+              width: screenWidth * 0.018,
+              height: screenHeight * 0.0100,
               color: greyColor03,
               borderRadius: BorderRadius.circular(7.5),
             ),

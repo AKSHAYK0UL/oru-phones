@@ -17,9 +17,11 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     return Container(
-      height: 45,
-      width: 100,
+      height: screenHeight * 0.052,
+      width: screenWidth * 0.2500,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
