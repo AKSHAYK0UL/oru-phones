@@ -8,7 +8,7 @@ class NotificationOffer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 40.9,
       ),
       color: Colors.amber,
@@ -23,7 +23,7 @@ class NotificationOffer extends StatelessWidget {
             style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           buildTextField(context),

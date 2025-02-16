@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oruphones/core/enum/sortenum.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
-
-enum SortOption {
-  valueForMoney,
-  priceHighToLow,
-  priceLowToHigh,
-  latest,
-}
 
 class SortBottomSheet extends StatefulWidget {
   const SortBottomSheet({Key? key}) : super(key: key);
@@ -16,8 +10,8 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
-  final ValueNotifier<SortOption?> _selectedSortOption =
-      ValueNotifier<SortOption?>(null);
+  final ValueNotifier<SortENUM?> _selectedSortOption =
+      ValueNotifier<SortENUM?>(null);
 
   @override
   void dispose() {
@@ -61,7 +55,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
             ],
           ),
         ),
-        ValueListenableBuilder<SortOption?>(
+        ValueListenableBuilder<SortENUM?>(
           valueListenable: _selectedSortOption,
           builder: (context, selectedOption, child) {
             return Column(
@@ -69,7 +63,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 sortTile(
                   context: context,
                   title: 'Value For Money',
-                  sortOption: SortOption.valueForMoney,
+                  sortOption: SortENUM.valueForMoney,
                   selectedOption: selectedOption,
                   onChanged: (option) {
                     _selectedSortOption.value = option;
@@ -78,7 +72,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 sortTile(
                   context: context,
                   title: 'Price: High To Low',
-                  sortOption: SortOption.priceHighToLow,
+                  sortOption: SortENUM.priceHighToLow,
                   selectedOption: selectedOption,
                   onChanged: (option) {
                     _selectedSortOption.value = option;
@@ -87,7 +81,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 sortTile(
                   context: context,
                   title: 'Price: Low To High',
-                  sortOption: SortOption.priceLowToHigh,
+                  sortOption: SortENUM.priceLowToHigh,
                   selectedOption: selectedOption,
                   onChanged: (option) {
                     _selectedSortOption.value = option;
@@ -96,7 +90,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 sortTile(
                   context: context,
                   title: 'Latest',
-                  sortOption: SortOption.latest,
+                  sortOption: SortENUM.latest,
                   selectedOption: selectedOption,
                   onChanged: (option) {
                     _selectedSortOption.value = option;
@@ -107,7 +101,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
           },
         ),
         Divider(height: 1, color: greyColor06),
-        ValueListenableBuilder<SortOption?>(
+        ValueListenableBuilder<SortENUM?>(
           valueListenable: _selectedSortOption,
           builder: (context, selectedOption, child) {
             return Padding(
@@ -164,9 +158,9 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
 Widget sortTile({
   required BuildContext context,
   required String title,
-  required SortOption sortOption,
-  required SortOption? selectedOption,
-  required ValueChanged<SortOption> onChanged,
+  required SortENUM sortOption,
+  required SortENUM? selectedOption,
+  required ValueChanged<SortENUM> onChanged,
 }) {
   final bool isSelected = sortOption == selectedOption;
   return ListTile(
@@ -174,7 +168,7 @@ Widget sortTile({
         isSelected ? const Color.fromRGBO(246, 192, 24, 0.07) : backgroundColor,
     onTap: () => onChanged(sortOption),
     title: Text(title, style: Theme.of(context).textTheme.labelMedium),
-    trailing: Radio<SortOption>(
+    trailing: Radio<SortENUM>(
       activeColor: yellowColor01,
       value: sortOption,
       groupValue: selectedOption,

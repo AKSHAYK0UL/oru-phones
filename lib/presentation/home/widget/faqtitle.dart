@@ -4,7 +4,7 @@ import 'package:oruphones/model/faq/faq.dart';
 
 class FaqTitle extends StatelessWidget {
   final FAQ data;
-  FaqTitle({Key? key, required this.data}) : super(key: key);
+  FaqTitle({super.key, required this.data});
 
   final ValueNotifier<bool> isOpen = ValueNotifier<bool>(false);
 

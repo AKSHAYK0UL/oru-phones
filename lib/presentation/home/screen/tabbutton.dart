@@ -93,8 +93,9 @@ class _TabbuttonState extends State<Tabbutton> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        left: screenHeight * 0.00633,
-                        right: screenHeight * 0.019),
+                      left: screenHeight * 0.00633,
+                      right: screenHeight * 0.019,
+                    ),
                     child: UserSingleton.user != null
                         ? IconButton(
                             onPressed: () {},
@@ -111,7 +112,7 @@ class _TabbuttonState extends State<Tabbutton> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: yellowColor01,
                               fixedSize: Size(
-                                  screenWidth * 2000, screenHeight * 0.0316),
+                                  screenWidth * 0.2000, screenHeight * 0.0316),
                             ),
                             child: Text(
                               "Login",

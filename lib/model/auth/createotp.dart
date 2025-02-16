@@ -1,4 +1,3 @@
-//Sending User Data to Generate OTP
 class CreateOTP {
   final String countryCode;
   final String mobileNumber;

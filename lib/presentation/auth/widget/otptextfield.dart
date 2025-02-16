@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:pinput/pinput.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
 
 class OTPTextField extends StatefulWidget {
@@ -16,20 +16,38 @@ class _OTPTextFieldState extends State<OTPTextField> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return OtpTextField(
-      numberOfFields: 4,
-      showFieldAsBox: true,
-      borderRadius: BorderRadius.circular(8),
-      enabledBorderColor: textinputInactiveColor,
-      focusedBorderColor: textinputActiveColor,
-      borderColor: textinputInactiveColor,
-      alignment: Alignment.center,
-      borderWidth: 1.5,
+    final defaultPinTheme = PinTheme(
+      width: screenWidth * 0.12,
+      height: screenHeight * 0.065,
+      textStyle: TextStyle(
+        fontSize: screenHeight * 0.0253,
+        color: Colors.black,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: textinputInactiveColor,
+          width: 1.5,
+        ),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        border: Border.all(
+          color: textinputActiveColor,
+          width: 1.5,
+        ),
+      ),
+    );
+
+    return Pinput(
+      length: 4,
+      defaultPinTheme: defaultPinTheme,
+      focusedPinTheme: focusedPinTheme,
       keyboardType: TextInputType.number,
-      fieldHeight: screenHeight * 0.065,
-      fieldWidth: screenWidth * 0.120,
-      filled: true,
-      onSubmit: widget.otpValue,
+      onChanged: widget.otpValue,
+      onCompleted: widget.otpValue,
     );
   }
 }

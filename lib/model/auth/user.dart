@@ -18,7 +18,7 @@ class User {
   final bool waOptIn;
   @HiveField(6)
   String? cookie;
-  //
+  //csrf token and userexist will not be saved in hive box
   String? csrfToken;
   bool? userExist; //when true your name screen will be skiped
 

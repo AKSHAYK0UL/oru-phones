@@ -37,8 +37,10 @@ class _UserNameState extends State<UserName> {
             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0152),
             child: IconButton(
               onPressed: () {
-                FocusManager.instance.primaryFocus
-                    ?.unfocus(); //close the keyboard
+                FocusManager.instance.primaryFocus?.unfocus();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               icon: Icon(
                 Icons.close,
