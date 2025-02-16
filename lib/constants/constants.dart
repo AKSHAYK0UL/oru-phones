@@ -6,3 +6,8 @@ const Map<String, String> contentTypeJson = {
 //hive box name
 
 const String hiveBoxUserData = "user";
+
+const playstoreUrl =
+    "https://play.google.com/store/apps/details?id=com.oruphones.oru";
+const appstoreUrl =
+    "https://apps.apple.com/dk/app/oruphones-sell-used-phones/id1629378420";

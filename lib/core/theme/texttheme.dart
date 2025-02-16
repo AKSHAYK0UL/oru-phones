@@ -15,6 +15,11 @@ TextTheme textTheme(double screenHeight) {
       fontSize: screenHeight * 0.0200,
       fontWeight: FontWeight.w500,
     ),
+    displayLarge: GoogleFonts.poppins(
+      color: backgroundColor,
+      fontSize: screenHeight * 0.0320,
+      fontWeight: FontWeight.w600,
+    ),
     displayMedium: GoogleFonts.poppins(
       color: titleMediumTextColor,
       fontSize: screenHeight * 0.0250,

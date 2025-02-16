@@ -8,6 +8,7 @@ import 'package:oruphones/core/ui_component/toast.dart';
 import 'package:oruphones/model/auth/createotp.dart';
 import 'package:oruphones/presentation/auth/screen/username.dart';
 import 'package:oruphones/presentation/auth/widget/otptextfield.dart';
+import 'package:oruphones/presentation/home/screen/tabbutton.dart';
 
 // ignore: must_be_immutable
 class VerifyOtp extends StatefulWidget {
@@ -138,8 +139,16 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 buildWhen: (previous, current) => current != previous,
                 listenWhen: (previous, current) => current != previous,
                 listener: (context, state) {
-                  if (state is AuthSuccessState) {
+                  if (state is AuthSuccessState &&
+                      state.successSource == AuthENUM.newUser) {
                     Navigator.of(context).pushNamed(UserName.routeName);
+                  }
+                  if (state is AuthSuccessState &&
+                      state.successSource == AuthENUM.userExist) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      Tabbutton.routeName,
+                      (Route<dynamic> route) => false,
+                    );
                   }
                   if (state is AuthErrorState &&
                       state.errorSource == AuthENUM.verifyOTP) {

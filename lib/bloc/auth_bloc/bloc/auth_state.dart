@@ -15,7 +15,11 @@ class AuthErrorState extends AuthState {
   AuthErrorState({required this.errorMessage, required this.errorSource});
 }
 
-final class AuthSuccessState extends AuthState {}
+final class AuthSuccessState extends AuthState {
+  final AuthENUM successSource;
+
+  AuthSuccessState({required this.successSource});
+}
 
 final class AuthOTPResponseState extends AuthState {
   final OTPResponse otpResponse;

@@ -16,4 +16,14 @@ class HiveService {
   User get user {
     return _box.getAt(0)!;
   }
+
+//clear()
+  Future<void> clear() async {
+    _box.deleteAt(0);
+  }
+
+  //close
+  Future<void> close() async {
+    _box.close();
+  }
 }

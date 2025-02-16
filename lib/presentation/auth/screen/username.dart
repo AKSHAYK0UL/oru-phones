@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oruphones/bloc/auth_bloc/bloc/auth_bloc.dart';
+import 'package:oruphones/core/enum/authenum.dart';
 import 'package:oruphones/core/theme/hexcolor.dart';
+import 'package:oruphones/core/ui_component/toast.dart';
 import 'package:oruphones/presentation/auth/widget/usernameinputfiled.dart';
-import 'package:oruphones/presentation/home/screen/home.dart';
+import 'package:oruphones/presentation/home/screen/tabbutton.dart';
 
 class UserName extends StatefulWidget {
   static const routeName = "/username";
@@ -103,73 +107,57 @@ class _UserNameState extends State<UserName> {
               SizedBox(
                 height: screenHeight * 0.0760,
               ),
-              // ValueListenableBuilder(
-              //   valueListenable: checkbox,
-              //   builder: (context, value, child) {
-              //     return Row(
-              //       mainAxisSize: MainAxisSize.max,
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: [
-              //         Checkbox(
-              //           value: value,
-              //           onChanged: (value) {
-              //             checkbox.value = value ?? false;
-              //           },
-              //         ),
-              //         RichText(
-              //           text: TextSpan(
-              //             children: [
-              //               TextSpan(
-              //                 text: "Accept ",
-              //                 style: Theme.of(context)
-              //                     .textTheme
-              //                     .labelMedium!
-              //                     .copyWith(
-              //                       color: textBlackColor,
-              //                     ),
-              //               ),
-              //               TextSpan(
-              //                 text: "Terms and condition",
-              //                 style: Theme.of(context)
-              //                     .textTheme
-              //                     .labelMedium!
-              //                     .copyWith(
-              //                       color: textNavyBlueHexColor01,
-              //                       decoration: TextDecoration.underline,
-              //                     ),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // ),
-              // SizedBox(
-              //   height: screenHeight * 0.0060,
-              // ),
-              ElevatedButton(
-                style: Theme.of(context).elevatedButtonTheme.style,
-                onPressed: () {
-                  Navigator.of(context).pushNamed(Home.routeName);
+              BlocConsumer<AuthBloc, AuthState>(
+                buildWhen: (previous, current) => previous != current,
+                listenWhen: (previous, current) => previous != current,
+                listener: (context, state) {
+                  if (state is AuthSuccessState &&
+                      state.successSource == AuthENUM.updataName) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      Tabbutton.routeName,
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                  if (state is AuthErrorState &&
+                      state.errorSource == AuthENUM.updataName) {
+                    showToast("error in Updating name");
+                  }
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Confirm Name",
-                      style: GoogleFonts.poppins(
-                        fontSize: screenHeight * 0.0253,
-                        fontWeight: FontWeight.w600,
-                      ),
+                builder: (context, state) {
+                  if (state is AuthLoadingState &&
+                      state.laodingSource == AuthENUM.updataName) {
+                    return const CircularProgressIndicator();
+                  }
+                  return ElevatedButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
+                    onPressed: () {
+                      if (userNameController.text.isEmpty) {
+                        showToast("Enter Name");
+                        return;
+                      }
+                      context.read<AuthBloc>().add(
+                            UpdateUserNameEvent(name: userNameController.text),
+                          );
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Confirm Name",
+                          style: GoogleFonts.poppins(
+                            fontSize: screenHeight * 0.0253,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(width: screenHeight * 0.00633),
+                        Icon(
+                          Icons.arrow_forward,
+                          size: screenHeight * 0.0380,
+                        ),
+                      ],
                     ),
-                    SizedBox(width: screenHeight * 0.00633),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: screenHeight * 0.0380,
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ],
           ),

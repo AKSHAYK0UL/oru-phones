@@ -10,6 +10,7 @@ import 'package:oruphones/presentation/auth/screen/otp.dart';
 import 'package:oruphones/presentation/auth/widget/inputfield.dart';
 
 class SignIn extends StatefulWidget {
+  static const routeName = "/signin";
   const SignIn({super.key});
 
   @override
@@ -34,6 +35,7 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0152),

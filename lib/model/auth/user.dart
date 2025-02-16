@@ -18,15 +18,20 @@ class User {
   final bool waOptIn;
   @HiveField(6)
   String? cookie;
+  //
+  String? csrfToken;
+  bool? userExist; //when true your name screen will be skiped
 
   User({
     required this.userName,
     required this.mobileNumber,
     required this.isAccountExpired,
     required this.createdDate,
-    this.favListings,
     required this.waOptIn,
-    this.cookie, //will be assigned separately
+    this.userExist,
+    this.favListings,
+    this.cookie,
+    this.csrfToken,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -41,6 +46,7 @@ class User {
               .toList() ??
           [],
       waOptIn: json["WAOptIn"] ?? true,
+      csrfToken: json["csrfToken"] ?? "",
     );
   }
 
@@ -51,6 +57,7 @@ class User {
       "isAccountExpired": isAccountExpired,
       "createdDate": createdDate,
       "WAOptIn": waOptIn,
+      "csrfToken": csrfToken
     };
 
     if (favListings != null && favListings!.isNotEmpty) {

@@ -13,3 +13,13 @@ final class VerifyOTPEvent extends AuthEvent {
 
   VerifyOTPEvent({required this.data});
 }
+
+final class UpdateUserNameEvent extends AuthEvent {
+  final String name;
+
+  UpdateUserNameEvent({required this.name});
+}
+
+final class UpdateUserEvent extends AuthEvent {}
+
+final class LogOutEvent extends AuthEvent {}

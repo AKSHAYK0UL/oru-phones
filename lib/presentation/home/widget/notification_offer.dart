@@ -41,12 +41,14 @@ Widget buildTextField(BuildContext context) {
       fillColor: Colors.white,
       hintStyle: Theme.of(context)
           .textTheme
-          .labelLarge!
+          .labelMedium!
           .copyWith(color: hintTextColor),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 25),
       suffixIcon: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         child: TextButton(
           style: TextButton.styleFrom(
+            fixedSize: const Size(80, 0),
             backgroundColor: blackColor03,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
