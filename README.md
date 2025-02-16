@@ -1,6 +1,6 @@
 # oruphones
 
-<h1>State Management Approach: flutter_bloc</h1>
+<h1>State Management Approach: BLoC</h1>
 
 <p>This project uses <strong>BLoC</strong> for state management, following the BLoC pattern. The architecture is organized into the following layers:</p>
 
