@@ -115,7 +115,9 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                     },
                     child: Text(
                       'Clear',
-                      style: TextStyle(color: yellowColor01),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: yellowColor01,
+                          ),
                     ),
                   ),
                   ElevatedButton(
@@ -132,7 +134,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                       foregroundColor:
                           WidgetStateProperty.all<Color>(Colors.black),
                       fixedSize:
-                          WidgetStateProperty.all<Size>(const Size(180, 52)),
+                          WidgetStateProperty.all<Size>(const Size(156, 46)),
                       padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             horizontal: 24, vertical: 12),
@@ -143,7 +145,12 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                         ),
                       ),
                     ),
-                    child: const Text('Apply'),
+                    child: Text(
+                      'Apply',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: blackColor,
+                          ),
+                    ),
                   ),
                 ],
               ),

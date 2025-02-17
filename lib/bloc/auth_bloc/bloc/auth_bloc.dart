@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oruphones/core/enum/authenum.dart';
 import 'package:oruphones/core/singleton/usersingleton.dart';
@@ -76,15 +77,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       final response = await _authRepo.updateUserName(event.name);
-      print(response);
+      debugPrint(response.toString());
       final user = UserSingleton.user;
       user!.userName = event.name;
       final saveUser = User(
-          userName: user.userName,
-          mobileNumber: user.mobileNumber,
-          isAccountExpired: user.isAccountExpired,
-          createdDate: user.createdDate,
-          waOptIn: user.waOptIn);
+        userName: user.userName,
+        mobileNumber: user.mobileNumber,
+        isAccountExpired: user.isAccountExpired,
+        createdDate: user.createdDate,
+        waOptIn: user.waOptIn,
+        cookie: user.cookie,
+      );
+
       _hiveService.save(saveUser);
 
       emit(AuthSuccessState(successSource: AuthENUM.updataName));
@@ -105,7 +109,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final currentUser = _hiveService.user;
 
       final updatedUserData = await _authRepo.isLoggedIn(currentUser.cookie!);
-
       UserSingleton(
         userName: updatedUserData.userName,
         mobileNumber: updatedUserData.mobileNumber,
@@ -119,7 +122,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _hiveService.save(updatedUserData);
 
       emit(AuthSuccessState(successSource: AuthENUM.updateUser));
-    } catch (e) {}
+    } catch (e) {
+      AuthErrorState(
+        errorMessage: e.toString(),
+        errorSource: AuthENUM.updateUser,
+      );
+    }
   }
 
   //logout
@@ -127,7 +135,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState(laodingSource: AuthENUM.logout));
     try {
       final response = await _authRepo.logOut();
-      print(response);
+      debugPrint(response.toString());
+
       UserSingleton.clear();
       await _hiveService.clear();
       emit(AuthSuccessState(successSource: AuthENUM.logout));
